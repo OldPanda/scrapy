@@ -127,7 +127,7 @@ class CrawlerProcess(object):
         if self.settings.getbool('DNSCACHE_ENABLED'):
             reactor.installResolver(CachingThreadedResolver(reactor))
         tp = reactor.getThreadPool()
-        tp.adjustPoolsize(maxthreads=self.settings.getint('REACTOR_THREADPOOL_MAXSIZE'))
+        tp.adjustPoolsize(maxthreads=self.settings.getint('REACTOR_THREADPOOL_MAXSIZE', default=10))
         reactor.addSystemEventTrigger('before', 'shutdown', self.stop)
         reactor.run(installSignalHandlers=False)  # blocking call
 
